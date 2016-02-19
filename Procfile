@@ -1,0 +1,1 @@
+web: gunicorn gnome_defender.wsgi --log-file -
