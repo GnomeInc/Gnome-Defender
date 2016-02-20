@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import DataSet
+from .models import Gnome
+
+admin.site.register(DataSet)
+admin.site.register(Gnome)

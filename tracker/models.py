@@ -25,6 +25,9 @@ class DataSet(models.Model):
     soil_moisture = models.IntegerField()
     nutrient_level = models.IntegerField()
 
+    def __str__(self):
+        return self.date.strftime('%m/%%d/%y') + " " + self.time.strftime('%H:%M')
+
 
 class Gnome(models.Model):
     """
@@ -36,7 +39,9 @@ class Gnome(models.Model):
     GNOME_MODELS = (
         ('GD', 'Gnome Defender'),
     )
-
     gnome_model = models.CharField(max_length=20, choices=GNOME_MODELS)
     name = models.CharField(max_length=20)
     user = models.ForeignKey(User, editable=False, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
