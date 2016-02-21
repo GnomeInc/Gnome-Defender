@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, RequestContext, render_to_response
 from django.views import generic
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from .models import DataSet
 
 
@@ -12,5 +12,6 @@ class IndexView(generic.ListView):
         return DataSet.objects.order_by('-date', '-time')[:5]
 
 
-def data_detail(request, dataset_id):
-    return HttpResponse("You're looking at datum %s." % dataset_id)
+class DetailView(generic.DetailView):
+    model = DataSet
+    template_name = 'tracker/detail.html'

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gnome Defender</title>
+</head>
+<body>
+
+<h1>{{ dataset.date }} {{ dataset.time }}</h1>
+<h2>{{ dataset.user.first_name }}</h2>
+<h2>{{ dataset.gnome }}</h2>
+
+<table>
+    <tr>
+        <td class="data_label">Temperature</td>
+        <td>{{ dataset.temperature }}</td>
+    </tr>
+    <tr>
+        <td class="data_label">Humidity</td>
+        <td>{{ dataset.humidity }}</td>
+    </tr>
+    <tr>
+        <td class="data_label">Light Level</td>
+        <td>{{ dataset.light_level }}</td>
+    </tr>
+    <tr>
+        <td class="data_label">Soil Moisture</td>
+        <td>{{ dataset.soil_moisture }}</td>
+    </tr>
+    <tr>
+        <td class="data_label">Soil Nutrients</td>
+        <td>{{ dataset.nutrient_level }}</td>
+    </tr>
+</table>
+
+
+</body>
+</html>
