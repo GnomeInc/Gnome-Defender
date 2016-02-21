@@ -1,0 +1,14 @@
+body    {
+    font: normal 16px auto;
+    font-family: "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+    color: #4f6b72;
+    background: #E6EAE9;
+}
+
+li a {
+    color: green;
+}
+
+.data_label {
+    font-weight: bold;
+}
