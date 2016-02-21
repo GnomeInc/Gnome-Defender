@@ -1,3 +1,13 @@
 venv
 *.pyc
 staticfiles
+
+# User-specific stuff:
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/dictionaries
+.idea/vcs.xml
+.idea/jsLibraryMappings.xml
+
+#database
+*.sqlite3
