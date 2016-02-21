@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gnome Tracker</title>
+</head>
+<body>
+<p>Hello!</p>
+{% if latest_data_list %}
+    <ul>
+        {% for dataset in latest_date_list %}
+            <li><a href="/tracker/{{ dataset.id }}/">{{ dataset.time }}</a></li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No transactions are available</p>
+{% endif %}
+
+</body>
+</html>
