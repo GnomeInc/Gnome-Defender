@@ -12,3 +12,11 @@ li a {
 .data_label {
     font-weight: bold;
 }
+
+
+.main-center  {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}

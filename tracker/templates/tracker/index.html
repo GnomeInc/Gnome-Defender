@@ -4,10 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Gnome Tracker</title>
-    <link href="{% static 'tracker/main.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'tracker/stylesheets/main.css' %}" rel="stylesheet" type="text/css" />
 </head>
 <body>
-<h1>Welcome to Gnome Defender!</h1>
+
+<section class="main-center">
+<table>
+    <tr>
+        <td><img src="{% static "tracker/images/gnome_head_logo.png" %}" alt="Logo" width="50px"/></td>
+        <td><h1>Gnome Defender</h1></td>
+    </tr>
+</table>
+
+
 {% if latest_data_list %}
     <h3>Data List:</h3>
     <ul>
@@ -18,6 +27,8 @@
 {% else %}
     <p>No transactions are available</p>
 {% endif %}
+
+</section>
 
 </body>
 </html>
