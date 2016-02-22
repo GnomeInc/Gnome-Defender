@@ -8,27 +8,29 @@
 </head>
 <body>
 
-<section class="main-center">
-<table>
-    <tr>
-        <td><img src="{% static "tracker/images/gnome_head_logo.png" %}" alt="Logo" width="50px"/></td>
-        <td><h1>Gnome Defender</h1></td>
-    </tr>
-</table>
+<artcile class="main_center">
+    <table>
+        <tr>
+            <td><img src="{% static "tracker/images/gnome_head_logo.png" %}" alt="Logo" width="50px"/></td>
+            <td><h1>Gnome Defender</h1></td>
+        </tr>
+    </table>
 
 
-{% if latest_data_list %}
-    <h3>Data List:</h3>
-    <ul>
-        {% for dataset in latest_data_list %}
-            <li><a href="{% url 'tracker:detail' dataset.id %}">{{ dataset.time }}</a></li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>No transactions are available</p>
-{% endif %}
+    <section class="main_list">
+        {% if latest_data_list %}
+            <h3>Data List:</h3>
+            <ul>
+                {% for dataset in latest_data_list %}
+                    <li><a href="{% url 'tracker:detail' dataset.id %}">{{ dataset.time }}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No transactions are available</p>
+        {% endif %}
+    </section>
 
-</section>
+</artcile>
 
 </body>
 </html>

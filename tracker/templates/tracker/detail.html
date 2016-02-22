@@ -8,12 +8,12 @@
 </head>
 <body>
 
-
+<article>
 <h1>{{ dataset.date }} {{ dataset.time }}</h1>
 <h2>{{ dataset.user.first_name }}</h2>
 <h2>{{ dataset.gnome }}</h2>
 
-<table>
+<table class="main_list">
     <tr>
         <td class="data_label">Temperature</td>
         <td>{{ dataset.temperature }}</td>
@@ -35,6 +35,6 @@
         <td>{{ dataset.nutrient_level }}</td>
     </tr>
 </table>
-
+</article>
 </body>
 </html>
