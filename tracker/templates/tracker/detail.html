@@ -9,6 +9,8 @@
 <body>
 
 <article>
+
+{% if user.is_authenticated %}
 <h1>{{ dataset.date }} {{ dataset.time }}</h1>
 <h2>{{ dataset.user.first_name }}</h2>
 <h2>{{ dataset.gnome }}</h2>
@@ -35,6 +37,12 @@
         <td>{{ dataset.nutrient_level }}</td>
     </tr>
 </table>
+    <a href="{% url 'tracker:index' %}">Back to Main</a> <br />
+    <a href="{% url 'tracker:logout' %}">Logout</a>
+{% else %}
+    <p>You must be logged in to see this.</p>
+{% endif %}
 </article>
+
 </body>
 </html>

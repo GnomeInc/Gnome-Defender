@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load staticfiles %}
+<head>
+    <meta charset="UTF-8">
+    <title>Gnome Defender: Login</title>
+    <link href="{% static 'tracker/stylesheets/main.css' %}" rel="stylesheet" type="text/css" />
+</head>
+<body>
+
+<article class="main_center">
+    <table>
+        <tr>
+            <td><img src="{% static "tracker/images/gnome_head_logo.png" %}" alt="Logo" width="50px"/></td>
+            <td><h1>Login to Gnome Defender</h1></td>
+        </tr>
+    </table>
+
+    <form id="login_form" method="post" action="{% url 'tracker:login' %}">
+        {% csrf_token %}
+        <label for="username">Username:</label><input type="text" id="username" name="username" value="" size="50" /><br />
+        <label for="password">Password:</label><input type="password" id="password" name="password" value="" size="50"><br />
+        <input type="submit" value="Login" />
+    </form>
+
+</article>
+
+</body>
+</html>

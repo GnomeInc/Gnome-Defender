@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<artcile class="main_center">
+<article class="main_center">
     <table>
         <tr>
             <td><img src="{% static "tracker/images/gnome_head_logo.png" %}" alt="Logo" width="50px"/></td>
@@ -16,7 +16,7 @@
         </tr>
     </table>
 
-
+    {% if user.is_authenticated %}
     <section class="main_list">
         {% if latest_data_list %}
             <h3>Data List:</h3>
@@ -29,8 +29,17 @@
             <p>No transactions are available</p>
         {% endif %}
     </section>
+    {% endif %}
 
-</artcile>
+
+{% if user.is_authenticated %}
+    <a href="{% url 'tracker:logout' %}">Logout</a>
+{% else %}
+    <a href="{% url 'tracker:login' %}">Login</a>
+{% endif %}
+
+
+</article>
 
 </body>
 </html>
