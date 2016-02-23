@@ -29,6 +29,9 @@
             <p>No transactions are available</p>
         {% endif %}
     </section>
+        <form action="{% url 'tracker:add_gnome' %}" method="get">
+            <input type="submit" value="Register a new Gnome" />
+        </form>
     {% endif %}
 
 

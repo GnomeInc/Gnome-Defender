@@ -1,10 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load staticfiles %}
 <head>
     <meta charset="UTF-8">
     <title>Gnome Defender: Register a Gnome</title>
+    <link href="{% static 'tracker/stylesheets/main.css' %}" rel="stylesheet" type="text/css" />
 </head>
 <body>
+    {% if user.is_authenticated %}
+
+        <h1>Register a new Gnome</h1>
+        <form action="{% url 'tracker:add_gnome' %}" method="post">
+        {% csrf_token %}
+        {{  form.as_ul }}
+        <input type="submit" value="Register" />
+
+        </form>
+    {% else %}
+        <p>You must be logged in to do that.</p>
+    {% endif %}
 
 </body>
 </html>
