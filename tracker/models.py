@@ -18,7 +18,7 @@ class DataSet(models.Model):
     :soil_moisture:     soil moisture level normalized to optimal soil moisture for plants
     :nutrient_level:    soild nutrient NPK level at time of datum harvest
     """
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='datasets')
     gnome = models.ForeignKey('Gnome', on_delete=models.CASCADE)
     date = models.DateField()
     time = models.TimeField()
@@ -47,7 +47,7 @@ class Gnome(models.Model):
     )
     gnome_model = models.CharField(max_length=20, choices=GNOME_MODELS)
     name = models.CharField(max_length=20)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='gnomes')
 
     def __str__(self):
         return self.name

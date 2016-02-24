@@ -21,8 +21,10 @@ class GnomeSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
+    gnomes = serializers.PrimaryKeyRelatedField(many=True, queryset=Gnome.objects.all())
+
     class Meta:
         model = User
         fields = (
-            'id', 'username', 'first_name', 'last_name'
+            'id', 'username', 'first_name', 'last_name', 'gnomes'
         )

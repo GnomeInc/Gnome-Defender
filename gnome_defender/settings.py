@@ -28,6 +28,7 @@ DEBUG = True
 # Application definition
 
 INSTALLED_APPS = (
+    'rest_framework',
     'tracker',
     'django.contrib.admin',
     'django.contrib.auth',

@@ -1,19 +1,18 @@
 # Django imports
-from django.shortcuts import render, redirect, RequestContext, render_to_response
+from django.shortcuts import RequestContext, render_to_response
 from django.views import generic
 from django.views.generic.edit import FormView
-from django.http import HttpResponse, HttpResponseRedirect, Http404
+from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.utils import timezone
 
 # Rest API Imports
-from rest_framework import generics
+from rest_framework import generics, permissions
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from django.views.decorators.csrf import csrf_exempt
+from rest_framework import status
 
 # App Imports
 from .models import DataSet, Gnome
@@ -94,13 +93,58 @@ def user_logout(request):
 
 
 # REST API Views
-@csrf_exempt
 class DataSetList(generics.ListCreateAPIView):
     """
-    List All DataSets, or create a new DataSet
+    REST: List All DataSets, or create a new DataSet
     """
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     queryset = DataSet.objects.all()
     serializer_class = DataSetSerializer
 
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        serializer.save(owner=self.request.user)
+
+
+class DataSetDetail(generics.RetrieveUpdateDestroyAPIView):
+    """
+    REST: Retrieve, update, or delete a DataSet
+    """
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    queryset = DataSet.objects.all()
+    serializer_class = DataSetSerializer
+
+
+class GnomeList(generics.ListCreateAPIView):
+    """
+    REST: List and create Gnomes
+    """
+    queryset = Gnome.objects.all()
+    serializer_class = GnomeSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+
+class GnomeDetail(generics.RetrieveUpdateDestroyAPIView):
+    """
+    REST: Retrieve, update, or delete a Gnome
+    """
+    queryset = Gnome.objects.all()
+    serializer_class = GnomeSerializer
+
+
+class UserList(generics.ListAPIView):
+    """
+    REST: List all users
+    """
+    # TODO Possibly get rid of this.
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+class UserDetail(generics.RetrieveAPIView):
+    """
+    REST: Returns user details
+    """
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
