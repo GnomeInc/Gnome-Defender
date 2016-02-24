@@ -1,3 +1,10 @@
+"""
+    Author: Eric Kuha
+    File: views.py
+    Project: Gnome Defender
+
+    Copyright: GnomeInc, Some Rights Reserved
+"""
 from django import forms
 from .models import Gnome
 

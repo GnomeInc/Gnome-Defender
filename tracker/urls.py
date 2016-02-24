@@ -1,3 +1,10 @@
+"""
+    Author: Eric Kuha
+    File: views.py
+    Project: Gnome Defender
+
+    Copyright: GnomeInc, Some Rights Reserved
+"""
 from django.conf.urls import url
 from django.contrib.auth.decorators import login_required
 

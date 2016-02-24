@@ -1,4 +1,10 @@
 """
+    Author: Eric Kuha
+    File: views.py
+    Project: Gnome Defender
+
+    Copyright: GnomeInc, Some Rights Reserved
+
 Django settings for gnome_defender project on Heroku. Fore more info, see:
 https://github.com/heroku/heroku-django-template
 
@@ -20,7 +26,7 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "t$_=le4_)@i(dpk@+_^*e0j-#dkg^0si5w(eg=xr=f*+gb-rlf"
+SECRET_KEY = ""
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -29,6 +35,7 @@ DEBUG = True
 
 INSTALLED_APPS = (
     'rest_framework',
+    'rest_framework.authtoken',
     'tracker',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -100,7 +107,7 @@ AUTH_PASSWORD_VALIDATORS = (
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Chicago'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
@@ -129,3 +136,14 @@ STATICFILES_DIRS = [
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+# Rest Framework Settings
+REST_FRAMEWORK = {
+    'PAGE_SIZE': 10,
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+}

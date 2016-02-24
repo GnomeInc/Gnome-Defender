@@ -1,4 +1,11 @@
-from django.conf.urls import include, url
+"""
+    Author: Eric Kuha
+    File: views.py
+    Project: Gnome Defender
+
+    Copyright: GnomeInc, Some Rights Reserved
+"""
+from django.conf.urls import url
 from django.contrib import admin
 from django.http import HttpResponseRedirect
 from django.conf.urls import include

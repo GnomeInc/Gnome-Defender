@@ -1,3 +1,10 @@
+"""
+    Author: Eric Kuha
+    File: views.py
+    Project: Gnome Defender
+
+    Copyright: GnomeInc, Some Rights Reserved
+"""
 from rest_framework import serializers
 from django.contrib.auth.models import User
 

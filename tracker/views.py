@@ -1,3 +1,10 @@
+"""
+    Author: Eric Kuha
+    File: views.py
+    Project: Gnome Defender
+
+    Copyright: GnomeInc, Some Rights Reserved
+"""
 # Django imports
 from django.shortcuts import RequestContext, render_to_response
 from django.views import generic
@@ -18,6 +25,7 @@ from rest_framework import status
 from .models import DataSet, Gnome
 from .forms import GnomeForm
 from .serializers import DataSetSerializer, GnomeSerializer, UserSerializer
+from .permissions import IsOwnerOrReadOnly
 
 
 # Basic Model Views
@@ -97,7 +105,8 @@ class DataSetList(generics.ListCreateAPIView):
     """
     REST: List All DataSets, or create a new DataSet
     """
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,
+                          IsOwnerOrReadOnly)
     queryset = DataSet.objects.all()
     serializer_class = DataSetSerializer
 
@@ -109,7 +118,8 @@ class DataSetDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     REST: Retrieve, update, or delete a DataSet
     """
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,
+                          IsOwnerOrReadOnly)
     queryset = DataSet.objects.all()
     serializer_class = DataSetSerializer
 
@@ -118,6 +128,8 @@ class GnomeList(generics.ListCreateAPIView):
     """
     REST: List and create Gnomes
     """
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,
+                          IsOwnerOrReadOnly)
     queryset = Gnome.objects.all()
     serializer_class = GnomeSerializer
 
@@ -129,6 +141,8 @@ class GnomeDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     REST: Retrieve, update, or delete a Gnome
     """
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,
+                          IsOwnerOrReadOnly)
     queryset = Gnome.objects.all()
     serializer_class = GnomeSerializer
 
@@ -138,6 +152,8 @@ class UserList(generics.ListAPIView):
     REST: List all users
     """
     # TODO Possibly get rid of this.
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,
+                          IsOwnerOrReadOnly)
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
@@ -146,5 +162,7 @@ class UserDetail(generics.RetrieveAPIView):
     """
     REST: Returns user details
     """
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,
+                          IsOwnerOrReadOnly)
     queryset = User.objects.all()
     serializer_class = UserSerializer
