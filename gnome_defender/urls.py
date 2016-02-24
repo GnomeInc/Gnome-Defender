@@ -17,7 +17,9 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
 ]
 
-# Adding auth api to root
+# Set up Token Authentication Endpoint
+from rest_framework.authtoken import views
+
 urlpatterns += [
-    url(r'^api-auth/', include('rest_framework.urls')),
+    url(r'^api-token-auth/', views.obtain_auth_token)
 ]

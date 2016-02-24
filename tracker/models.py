@@ -63,6 +63,14 @@ class Gnome(models.Model):
 
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
-def create_auth_token(sender, instance=None, create=False, **kwargs):
+def create_auth_token(sender, instance=None, created=False, **kwargs):
+    """
+    If user has a token, send it along.
+    :param sender:
+    :param instance:
+    :param created:
+    :param kwargs:
+    :return:
+    """
     if created:
         Token.objects.create(user=instance)
