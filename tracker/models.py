@@ -35,7 +35,7 @@ class DataSet(models.Model):
     humidity = models.DecimalField(max_digits=5, decimal_places=2)
     light_level = models.IntegerField()
     soil_moisture = models.IntegerField()
-    nutrient_level = models.IntegerField()
+    nutrient_level = models.IntegerField()  #TODO Remove
 
     def was_harvested_today(self):
         return self.date == timezone.now().date()
