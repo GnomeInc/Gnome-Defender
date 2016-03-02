@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import DataSet, Gnome
+from .models import DataSet, Gnome, GnomeModel, GnomeFeature, Device
 
 
 class DataSetAdmin(admin.ModelAdmin):
@@ -24,5 +24,38 @@ class GnomeAdmin(admin.ModelAdmin):
     list_display = ('name', 'gnome_model', 'user')
 
 
+class GnomeModelAdmin(admin.ModelAdmin):
+    fieldsets = (
+        (None, {
+            'fields': [('name',), 'features', ]
+        }),
+    )
+
+    list_display = ('name',)
+
+
+class GnomeFeatureAdmin(admin.ModelAdmin):
+    fieldsets = (
+        (None, {
+            'fields': [('name',), ]
+        }),
+    )
+
+    list_display = ('name',)
+
+
+class DeviceAdmin(admin.ModelAdmin):
+    fieldsets = (
+        (None, {
+            'fields': [('device_id', 'device_type', 'user'), ]
+        }),
+    )
+
+    list_display = ('device_id', 'user')
+
+
+admin.site.register(GnomeFeature, GnomeFeatureAdmin)
+admin.site.register(GnomeModel, GnomeModelAdmin)
 admin.site.register(DataSet, DataSetAdmin)
 admin.site.register(Gnome, GnomeAdmin)
+admin.site.register(Device, DeviceAdmin)

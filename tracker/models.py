@@ -35,7 +35,7 @@ class DataSet(models.Model):
     humidity = models.DecimalField(max_digits=5, decimal_places=2)
     light_level = models.IntegerField()
     soil_moisture = models.IntegerField()
-    nutrient_level = models.IntegerField()  #TODO Remove
+    nutrient_level = models.IntegerField()
 
     def was_harvested_today(self):
         return self.date == timezone.now().date()
@@ -51,15 +51,47 @@ class Gnome(models.Model):
     :name:          a name given to the gnome by the user at the time of its activation
     :user:          the user account associated with this gnome.
     """
-    GNOME_MODELS = (
-        ('GD', 'Gnome Defender'),
-    )
-    gnome_model = models.CharField(max_length=20, choices=GNOME_MODELS)
+    gnome_model = models.ForeignKey('GnomeModel')
     name = models.CharField(max_length=20)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='gnomes')
 
     def __str__(self):
         return self.name
+
+
+class GnomeModel(models.Model):
+    """
+    This model represents a distinct model of gnome.  They will have a name and a number.
+    """
+    name = models.CharField(max_length=30, primary_key=True)
+    features = models.ManyToManyField('GnomeFeature')
+
+
+class GnomeFeature(models.Model):
+    """
+    Each of these will be a particular feature available to gnomes.
+    Potentially this model will be expanded.
+    """
+    name = models.CharField(max_length=1024)
+
+    def __str__(self):
+        return self.name
+
+
+class Device(models.Model):
+    """
+    Register device for purposes of pushing notifications and for individuals to audit their own security.
+    """
+    ANDROID = 1
+    IPHONE = 2
+    CHROME = 3
+    OTHER = 4
+
+    DEVICE_CHOICES = ((ANDROID, 'Android'), (IPHONE, 'iPhone'), (CHROME, 'Chrome'), (OTHER, 'Other'))
+
+    device_id = models.CharField(unique=True, max_length=1024, default='')
+    device_type = models.SmallIntegerField(choices=DEVICE_CHOICES)
+    user = models.ForeignKey(User, null=True)
 
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
