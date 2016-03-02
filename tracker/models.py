@@ -66,6 +66,9 @@ class GnomeModel(models.Model):
     name = models.CharField(max_length=30, primary_key=True)
     features = models.ManyToManyField('GnomeFeature')
 
+    def __str__(self):
+        return self.name
+
 
 class GnomeFeature(models.Model):
     """
@@ -92,6 +95,9 @@ class Device(models.Model):
     device_id = models.CharField(unique=True, max_length=1024, default='')
     device_type = models.SmallIntegerField(choices=DEVICE_CHOICES)
     user = models.ForeignKey(User, null=True)
+
+    def __str__(self):
+        return self.device_id
 
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
