@@ -26,11 +26,13 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# Look what I did.  Left my Secret Key in version control.  Tsk Tsk.  Amateur.
-SECRET_KEY = "t$_=le4_)@i(dpk@+_^*e0j-#dkg^0si5w(eg=xr=f*+gb-rlf"
+SECRET_KEY = 'applepie'
+
+if os.environ['SECRET_KEY']:
+    SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # Application definition
 
