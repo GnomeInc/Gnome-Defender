@@ -111,7 +111,7 @@ class DataSetList(generics.ListCreateAPIView):
     serializer_class = DataSetSerializer
 
     def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
+        serializer.save(user=self.request.user)
 
 
 class DataSetDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -134,7 +134,7 @@ class GnomeList(generics.ListCreateAPIView):
     serializer_class = GnomeSerializer
 
     def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
+        serializer.save(user=self.request.user)
 
 
 class GnomeDetail(generics.RetrieveUpdateDestroyAPIView):
