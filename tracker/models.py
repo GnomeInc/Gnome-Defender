@@ -27,8 +27,8 @@ class DataSet(models.Model):
     :soil_moisture:     soil moisture level normalized to optimal soil moisture for plants
     :nutrient_level:    soild nutrient NPK level at time of datum harvest
     """
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='datasets')
-    gnome = models.ForeignKey('Gnome', on_delete=models.CASCADE)
+    # user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='datasets')
+    gnome = models.ForeignKey('Gnome', on_delete=models.CASCADE, related_name="data")
     date = models.DateField()
     time = models.TimeField()
     temperature = models.DecimalField(max_digits=5, decimal_places=2)
