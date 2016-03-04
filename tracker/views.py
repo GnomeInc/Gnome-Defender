@@ -28,16 +28,29 @@ from .serializers import DataSetSerializer, GnomeSerializer, UserSerializer
 from .permissions import IsOwnerOrReadOnly
 
 
-# Basic Model Views
+# --------------------- Basic Model Views -----------------------------
+
+
 class IndexView(generic.ListView):
     """
-    A view for the data index.  It should get just the data points for the current day.
+    A view for the root user screen.  It should get just the data points for the current day.
     """
     template_name = 'tracker/index.html'
-    context_object_name = 'latest_data_list'
+    context_object_name = 'data_index'
 
     def get_queryset(self):
-        return DataSet.objects.order_by('-date', '-time')[:5]
+        return User.objects.all()
+
+    def get_context_data(self, **kwargs):
+        user = User.objects.get(username=self.request.user)
+        gnomes = Gnome.objects.filter(user=user)
+        data = DataSet.objects.filter(gnome__in=gnomes)
+
+        context = super(IndexView, self).get_context_data(**kwargs)
+        context['user'] = user
+        context['gnomes'] = gnomes
+        context['data'] = data
+        return context
 
 
 class DetailView(generic.DetailView):
@@ -100,7 +113,7 @@ def user_logout(request):
     return HttpResponseRedirect('/tracker/')
 
 
-# REST API Views
+# <--------------------- REST API Views ----------------------------->
 class DataSetList(generics.ListCreateAPIView):
     """
     REST: List All DataSets, or create a new DataSet

@@ -30,7 +30,7 @@
 
     {% if user.is_authenticated %}
         <section class="well">
-            {% if latest_data_list %}
+            {% if data_index %}
                 <h3>Today: {% now "SHORT_DATE_FORMAT" %}</h3>
 
                 <table class="table table-bordered table-condensed table-hover">
@@ -62,7 +62,7 @@
             {% endif %}
         </section>
         <form action="{% url 'tracker:add_gnome' %}" method="get">
-            <button name="submit" type="submit">Register a new Gnome</button>
+            <button class="btn btn-info" name="submit" type="submit">Register a new Gnome</button>
         </form>
     {% endif %}
 
