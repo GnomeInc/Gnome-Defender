@@ -3,6 +3,8 @@
     File: views.py
     Project: Gnome Defender
 
+    Version: DEV 1
+
     Copyright: GnomeInc, Some Rights Reserved
 
 Django settings for gnome_defender project on Heroku. Fore more info, see:
@@ -27,12 +29,10 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'applepie'
-
-if os.environ['SECRET_KEY']:
-    SECRET_KEY = os.environ['SECRET_KEY']
+# SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 # Application definition
 

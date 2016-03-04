@@ -44,3 +44,20 @@ h1          {
     margin-right: auto;
     width: 50%;
 }
+
+a.button, button    {
+    width: 100px;
+    background: #8BC34A;
+    padding-left: 5px;
+    padding-right: 5px;
+    color:  #fff;
+    height: 30px;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border: 1px solid #999;
+}
+
+button  {
+    float: right;
+}
