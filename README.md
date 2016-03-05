@@ -2,7 +2,7 @@
 
 This is the main repository for the open-source version of our backend software.
 
-## Version: DEV 1
+## Version: DEV 1.1
 
 ## Features
 

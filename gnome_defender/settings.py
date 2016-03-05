@@ -3,7 +3,7 @@
     File: views.py
     Project: Gnome Defender
 
-    Version: DEV 1
+    Version: DEV 1.1
 
     Copyright: GnomeInc, Some Rights Reserved
 
@@ -32,7 +32,7 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # Application definition
 
