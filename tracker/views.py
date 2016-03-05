@@ -44,15 +44,15 @@ class GnomeIndexView(generic.ListView):
         return gnomes
 
 
-class DataIndexView(generic.ListView):
+class DataIndexView(generic.DetailView):
     """
-    A view for the root user screen.  It should get just the data points for the current day.
+    Shows detailed view of one gnome.  It should get just the data points for the current day.
     """
     template_name = 'tracker/data_index.html'
     context_object_name = 'data_index'
 
     def get_queryset(self):
-        return self.request.user
+        return Gnome.objects.filter(user=self.request.user)
 
     def get_context_data(self, **kwargs):
         context = super(DataIndexView, self).get_context_data(**kwargs)
@@ -60,7 +60,6 @@ class DataIndexView(generic.ListView):
         if self.request.user.is_authenticated():
             gnomes = Gnome.objects.filter(user=self.request.user)
             data = DataSet.objects.filter(gnome__in=gnomes)
-
             context['gnomes'] = gnomes
             context['data'] = data
         return context

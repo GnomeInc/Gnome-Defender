@@ -13,7 +13,7 @@ from . import views
 urlpatterns = [
     url(r'^$', views.GnomeIndexView.as_view(), name='gnome_index'),
     url(r'^(?P<pk>[0-9]+)/$', views.DataIndexView.as_view(), name='data_index'),
-    url(r'^(?P<pk>[0-9]+)/$', views.DetailView.as_view(), name='detail'),
+    # url(r'^(?P<pk>[0-9]+)/$', views.DetailView.as_view(), name='detail'),
     url(r'^add_gnome/$', login_required(views.AddGnomeView.as_view()), name='add_gnome'),
     url(r'^login/$', views.user_login, name='login'),
     url(r'^logout/$', views.user_logout, name='logout'),

@@ -4,15 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Gnome Tracker</title>
+    <!-- jQuery  -->
+    <script src="{% static 'tracker/bower_components/jquery/dist/jquery.min.js' %}"></script>
     <!-- BootStrap -->
     <link href="{% static 'tracker/bower_components/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet"/>
     <link href="{% static 'tracker/bower_components/bootstrap/dist/css/bootstrap-theme.min.css' %}" rel="stylesheet"/>
     <script src="{% static 'tracker/bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
-    <!-- jQuery  -->
-    <script src="{% static 'tracker/bower_components/jquery/dist/jquery.min.js' %}"></script>
     <!-- Custom -->
     <script src="{% static 'tracker/js/main.js' %}"></script>
-    <link href="{% static 'tracker/stylesheets/main.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'tracker/stylesheets/main.css' %}" rel="stylesheet" type="text/css"/>
 
 </head>
 <body>
@@ -33,7 +33,20 @@
             {% if data_index %}
                 <h3>Today: {% now "SHORT_DATE_FORMAT" %}</h3>
 
-                <h1>{{ gnomes }}</h1>
+                <h1>
+                    {{ data_index.name }}
+                </h1>
+
+
+                <div class="btn-group">
+                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                        Other Gnomes <span class="caret"></span></button>
+                    <ul class="dropdown-menu" role="menu">
+                        {% for g in gnomes %}
+                            <li><a href="{% url 'tracker:data_index' g.id %}">{{ g }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
 
                 <table class="table table-bordered table-condensed table-hover">
                     <thead>
@@ -47,16 +60,18 @@
                     </tr>
                     </thead>
 
-                    {% for dataset in data_index.data %}
-                        <tr class="clickable-row" data-href="{% url 'tracker:detail' dataset.id %}">
-                            <td>{{ dataset.time }}</td>
-                            <td>{{ dataset.temperature }}</td>
-                            <td>{{ dataset.humidity }}</td>
-                            <td>{{ dataset.light_level }}</td>
-                            <td>{{ dataset.soil_moisture }}</td>
-                            <td>{{ dataset.nutrient_level }}</td>
+                    {% for dataset in data %}
+                        {% if dataset.gnome_id == data_index.id %}
+                            <tr>
+                                <td>{{ dataset.time }}</td>
+                                <td>{{ dataset.temperature }}</td>
+                                <td>{{ dataset.humidity }}</td>
+                                <td>{{ dataset.light_level }}</td>
+                                <td>{{ dataset.soil_moisture }}</td>
+                                <td>{{ dataset.nutrient_level }}</td>
 
-                        </tr>
+                            </tr>
+                        {% endif %}
                     {% endfor %}
                 </table>
             {% else %}
