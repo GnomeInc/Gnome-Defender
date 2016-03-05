@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load staticfiles %}
+<head>
+    <meta charset="UTF-8">
+    <title>Gnome Defender</title>
+    <!-- BootStrap -->
+    <link href="{% static 'tracker/bower_components/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet"/>
+    <link href="{% static 'tracker/bower_components/bootstrap/dist/css/bootstrap-theme.min.css' %}" rel="stylesheet"/>
+    <script src="{% static 'tracker/bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+    <!-- jQuery  -->
+    <script src="{% static 'tracker/bower_components/jquery/dist/jquery.min.js' %}"></script>
+    <!-- Custom -->
+    <script src="{% static 'tracker/js/main.js' %}"></script>
+    <link href="{% static 'tracker/stylesheets/main.css' %}" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="page-header">
+        <table>
+            <tr>
+                <td><img src="{% static "tracker/images/gnome_head_logo.png" %}" alt="Logo" width="50px"/></td>
+                <td><h1>Gnome Defender</h1></td>
+            </tr>
+        </table>
+    </div>
+
+    {% if user.is_authenticated %}
+        <section class="well">
+            <h2>Welcome {{ user.first_name }}</h2>
+            <h3>Today: {% now "SHORT_DATE_FORMAT" %}</h3>
+            <table class="table table- table-responsive">
+                <caption>Your active Gnomes</caption>
+                <thead>
+                    <tr>
+                        <th>Gnome Name</th>
+                        <th>Gnome Model</th>
+                    </tr>
+                </thead>
+                {% for gnome in gnome_index %}
+                    <tr class="clickable-row" data-href="{% url 'tracker:data_index' gnome.id %}">
+                        <td>{{ gnome.name }}</td>
+                        <td>{{ gnome.gnome_model }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+
+
+
+        </section>
+
+
+    {% endif %}
+
+    {% if user.is_authenticated %}
+        <a class="btn btn-info" href="{% url 'tracker:logout' %}">Logout</a>
+    {% else %}
+        <a class="btn btn-info" href="{% url 'tracker:login' %}">Login</a>
+    {% endif %}
+
+</div>
+
+
+</body>
+</html>

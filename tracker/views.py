@@ -30,26 +30,39 @@ from .permissions import IsOwnerOrReadOnly
 
 # --------------------- Basic Model Views -----------------------------
 
+class GnomeIndexView(generic.ListView):
+    """
+    A root view for the user to see all active gnomes.
+    """
+    template_name = 'tracker/gnome_index.html'
+    context_object_name = 'gnome_index'
 
-class IndexView(generic.ListView):
+    def get_queryset(self):
+        gnomes = None
+        if self.request.user.is_authenticated():
+            gnomes = Gnome.objects.filter(user=self.request.user)
+        return gnomes
+
+
+class DataIndexView(generic.ListView):
     """
     A view for the root user screen.  It should get just the data points for the current day.
     """
-    template_name = 'tracker/index.html'
+    template_name = 'tracker/data_index.html'
     context_object_name = 'data_index'
 
     def get_queryset(self):
-        return User.objects.all()
+        return self.request.user
 
     def get_context_data(self, **kwargs):
-        user = User.objects.get(username=self.request.user)
-        gnomes = Gnome.objects.filter(user=user)
-        data = DataSet.objects.filter(gnome__in=gnomes)
+        context = super(DataIndexView, self).get_context_data(**kwargs)
 
-        context = super(IndexView, self).get_context_data(**kwargs)
-        context['user'] = user
-        context['gnomes'] = gnomes
-        context['data'] = data
+        if self.request.user.is_authenticated():
+            gnomes = Gnome.objects.filter(user=self.request.user)
+            data = DataSet.objects.filter(gnome__in=gnomes)
+
+            context['gnomes'] = gnomes
+            context['data'] = data
         return context
 
 
@@ -122,9 +135,6 @@ class DataSetList(generics.ListCreateAPIView):
                           IsOwnerOrReadOnly)
     queryset = DataSet.objects.all()
     serializer_class = DataSetSerializer
-
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
 
 
 class DataSetDetail(generics.RetrieveUpdateDestroyAPIView):

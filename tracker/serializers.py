@@ -15,7 +15,7 @@ class DataSetSerializer(serializers.ModelSerializer):
     class Meta:
         model = DataSet
         fields = (
-            'id', 'user', 'gnome', 'date', 'time', 'temperature',
+            'id', 'gnome', 'date', 'time', 'temperature',
             'humidity', 'light_level', 'soil_moisture', 'nutrient_level'
         )
 
