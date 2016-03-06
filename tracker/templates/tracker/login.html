@@ -4,7 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Gnome Defender: Login</title>
-    <link href="{% static 'tracker/stylesheets/main.css' %}" rel="stylesheet" type="text/css" />
+        <link href="{% static 'tracker/bower_components/bootstrap/dist/css/bootstrap.min.css' %}" rel="stylesheet"/>
+    <link href="{% static 'tracker/bower_components/bootstrap/dist/css/bootstrap-theme.min.css' %}" rel="stylesheet"/>
+    <script src="{% static 'tracker/bower_components/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+    <!-- jQuery  -->
+    <script src="{% static 'tracker/bower_components/jquery/dist/jquery.min.js' %}"></script>
+    <!-- Custom -->
+    <script src="{% static 'tracker/js/main.js' %}"></script>
+    <link href="{% static 'tracker/stylesheets/main.css' %}" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 
@@ -22,7 +29,6 @@
         <label for="password">Password:</label><input type="password" id="password" name="password" value="" size="50"><br />
         <button name="submit" type="submit">Submit</button>
     </form>
-
 </article>
 
 </body>
