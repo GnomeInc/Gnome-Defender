@@ -22,4 +22,7 @@ urlpatterns = [
     url(r'^rest_users/(?P<pk>[0-9]+)/$', views.UserDetail.as_view(), name='rest_user_detail'),
     url(r'^rest_gnomes/$', views.GnomeList.as_view(), name='rest_gnome_index'),
     url(r'^rest_gnomes/(?P<pk>[0-9]+)/$', views.GnomeDetail.as_view(), name='rest_gnome_detail'),
+
+    url(r'^chart/$', views.chart, name='chart'),
+
 ]

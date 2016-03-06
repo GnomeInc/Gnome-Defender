@@ -7,6 +7,7 @@
 """
 # Django imports
 from django.shortcuts import RequestContext, render_to_response
+from django.template.loader import render_to_string
 from django.views import generic
 from django.views.generic.edit import FormView
 from django.http import HttpResponse, HttpResponseRedirect
@@ -62,6 +63,7 @@ class DataIndexView(generic.DetailView):
             data = DataSet.objects.filter(gnome__in=gnomes)
             context['gnomes'] = gnomes
             context['data'] = data
+            context['chart'] = chart(self.request.user, gnomes)
         return context
 
 
@@ -123,6 +125,27 @@ def user_logout(request):
     """
     logout(request)
     return HttpResponseRedirect('/tracker/')
+
+
+# ---------------------- Charting Functions ------------------------------
+
+import plotly.plotly as py
+import plotly.tools as tls
+import plotly.graph_objs as go
+
+
+def chart(user, gnome):
+    url = py.plot({
+        "data": [{
+            "x": [1, 2, 3],
+            "y": [4, 2, 5]
+        }],
+        "layout": {
+            "title": "hello world"
+        }
+    }, filname='hello world', sharing='public', auto_open=False)
+
+    return tls.get_embed(url)
 
 
 # <--------------------- REST API Views ----------------------------->
