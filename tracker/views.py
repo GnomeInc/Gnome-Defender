@@ -31,6 +31,12 @@ from .forms import GnomeForm
 from .serializers import DataSetSerializer, GnomeSerializer, UserSerializer
 from .permissions import IsOwnerOrReadOnly
 
+# Plotly Imports
+import plotly.plotly as py
+import plotly.tools as tls
+import plotly.graph_objs as go
+import numpy as np
+
 
 # --------------------- Basic Model Views -----------------------------
 
@@ -132,30 +138,53 @@ def user_logout(request):
 
 # ---------------------- Charting Functions ------------------------------
 
-import plotly.plotly as py
-import plotly.tools as tls
-from plotly.graph_objs import *
-
-
 def chart(gnome):
     data = DataSet.objects.filter(gnome=gnome).filter(date__exact=datetime.date.today())
 
-    x = []
-    y = []
+    time = []
+    temp_vals = []
+    hum_vals = []
+    light_vals = []
+    moisture_vals = []
+    nutrient_vals = []
 
     for d in data:
-        x.append(d.time)
-        y.append(str(d.temperature))
+        time.append(d.time)
+        temp_vals.append(str(d.temperature))
+        hum_vals.append(str(d.humidity))
+        light_vals.append(str(d.light_level))
+        moisture_vals.append(str(d.soil_moisture))
+        nutrient_vals.append(str(d.nutrient_level))
 
-    url = py.plot({
-        "data": [{
-            "x": x,
-            "y": y
-        }],
-        "layout": {
-            "title": "Temperature Data"
-        }
-    }, filename=gnome.name, sharing='public', auto_open=False)
+    temp_trace = go.Scatter(
+        x=time,
+        y=temp_vals,
+        mode='lines+markers',
+        name='Temperature'
+    )
+
+    hum_trace = go.Scatter(
+        x=time,
+        y=hum_vals,
+        mode='lines+markers',
+        name='Humidity'
+    )
+    light_trace = go.Scatter(
+        x=time,
+        y=light_vals,
+        mode='lines+markers',
+        name='Light Level'
+    )
+    nutrient_trace = go.Scatter(
+        x=time,
+        y=nutrient_vals,
+        mode='lines+markers',
+        name='Soil Nutrients'
+    )
+
+    data = [temp_trace, hum_trace, light_trace, nutrient_trace]
+
+    url = py.plot(data, filename=gnome.name, sharing='public', auto_open=False)
 
     return tls.get_embed(url)
 
