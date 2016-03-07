@@ -5,6 +5,9 @@
 
     Copyright: GnomeInc, Some Rights Reserved
 """
+# Standard Library Imports
+import datetime
+
 # Django imports
 from django.shortcuts import RequestContext, render_to_response
 from django.template.loader import render_to_string
@@ -63,7 +66,7 @@ class DataIndexView(generic.DetailView):
             data = DataSet.objects.filter(gnome__in=gnomes)
             context['gnomes'] = gnomes
             context['data'] = data
-            context['chart'] = chart(self.request.user, gnomes)
+            context['chart'] = chart(kwargs.get('object'))
         return context
 
 
@@ -131,19 +134,28 @@ def user_logout(request):
 
 import plotly.plotly as py
 import plotly.tools as tls
-import plotly.graph_objs as go
+from plotly.graph_objs import *
 
 
-def chart(user, gnome):
+def chart(gnome):
+    data = DataSet.objects.filter(gnome=gnome).filter(date__exact=datetime.date.today())
+
+    x = []
+    y = []
+
+    for d in data:
+        x.append(d.time)
+        y.append(str(d.temperature))
+
     url = py.plot({
         "data": [{
-            "x": [1, 2, 3],
-            "y": [4, 2, 5]
+            "x": x,
+            "y": y
         }],
         "layout": {
-            "title": "hello world"
+            "title": "Temperature Data"
         }
-    }, filname='hello world', sharing='public', auto_open=False)
+    }, filename=gnome.name, sharing='public', auto_open=False)
 
     return tls.get_embed(url)
 

@@ -47,7 +47,11 @@
                         {% endfor %}
                     </ul>
                 </div>
+                <br />
 
+                {% autoescape off %}
+                    {{ chart }}
+                {% endautoescape %}
                 <table class="table table-bordered table-condensed table-hover">
                     <thead>
                     <tr>
@@ -75,7 +79,7 @@
                     {% endfor %}
                 </table>
                 <div>
-                    {{ chart }}
+
                 </div>
 
 
